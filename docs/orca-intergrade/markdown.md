@@ -193,4 +193,4 @@ npm install --save-exact rehype-highlight@7.0.2 remark-math@6.0.0 rehype-katex@7
 - `node-pty@1.1.0` ยังตรึงรุ่นไว้ (ไม่ได้แตะวันนี้; npm แจ้งว่าข้าม install script ระหว่าง `npm install`)
 
 ## 10. งานอื่น ๆ / ที่ยังค้าง
-- เทสต์ล้มเป็นบางครั้ง: `react-shell` "Insert bar … Clear line" ล้ม 1 ครั้งในชุดเต็ม (timeout 8 วิ ที่ขั้นหลังกด Clear line) รันเดี่ยวผ่าน 4/4 และชุดเต็มรอบถัดไปผ่าน 80/80 — ไม่เกี่ยวกับงานรอบนี้ ยังไม่ได้หาสาเหตุ
+- [x] เทสต์ล้มเป็นบางครั้ง `react-shell` "Insert bar … Clear line" — แก้แล้ว 2026-10-11: ปุ่ม Clear line เลิกส่ง Esc ตัวเดียว (กำกวมใน ConPTY ตอนเครื่องทำงานหนัก) เปลี่ยนเป็น End + Ctrl+Home; รันเดี่ยวผ่าน 5/5, `npm test` 80/80 (`issues/017`)

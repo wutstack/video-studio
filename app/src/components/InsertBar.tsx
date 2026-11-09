@@ -6,6 +6,9 @@ import {useStudio,useSceneItems} from '../lib/state';
 import {QUICK_PROMPTS} from '../lib/prompts';
 import {workspacePath,relPath} from '../lib/paths';
 import {sendToTerminal,terminalReady} from './Console';
+// End, then Ctrl+Home (PSReadLine BackwardDeleteInput). Not a lone Esc: ConPTY can't always tell a lone ESC
+// from the start of an escape sequence, so under load Esc sometimes didn't clear the line (issues/017).
+const CLEAR_LINE='\x1b[F\x1b[1;5H';
 import {studioApi} from '../lib/api';
 
 // 8.9 s → "00:08.90"
@@ -55,6 +58,6 @@ export function InsertBar(){
   {QUICK_PROMPTS[page].map(q=><button key={q.label} className="insert-prompt" title={q.text(project)} onClick={()=>insert(q.text(project))}>{q.label}</button>)}
   {/* Escape is PSReadLine's RevertLine; Ctrl+U (the spec's suggestion) inserts a stray character in PowerShell.
       Not offered on claude/codex tabs: their clear-line key hasn't been verified. */}
-  {terminalKind==='powershell'&&<button className="insert-clear" title="Clear the line being typed (Esc)" onClick={()=>sendToTerminal('\u001b',{raw:true})}><Eraser size={13}/> Clear line</button>}
+  {terminalKind==='powershell'&&<button className="insert-clear" title="Clear the line being typed" onClick={()=>sendToTerminal(CLEAR_LINE,{raw:true})}><Eraser size={13}/> Clear line</button>}
  </div>;
 }
